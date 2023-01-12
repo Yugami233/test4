@@ -103,8 +103,7 @@ class Bot:
 
         buttons = [[InlineKeyboardButton("Plot", callback_data=f"{movie_data['thumbnail_path']}:plot"),
                    InlineKeyboardButton("Trailer", url=self.get_trailer_url(movie_data["thumbnail_path"])),
-                   InlineKeyboardButton("Ratings", callback_data=f"{movie_data['thumbnail_path]}:ratings")],
-                   [InlineKeyboardButton("IMDB page", url=f"{IMDB_LINK}{movie_data['imdbID']}")]]
+                   
         update.message.reply_text(data_str, reply_markup=InlineKeyboardMarkup(buttons))
 
     @staticmethod

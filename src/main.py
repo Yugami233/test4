@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+88#!/usr/bin/env python3
 
 """Telegram movie/show information bot
 
@@ -28,15 +28,8 @@ def main():
     bot.dp.add_handler(CommandHandler("help", bot.help_text))
     # Movie commands
     bot.dp.add_handler(CommandHandler("find", bot.find_title))
-    bot.dp.add_handler(CommandHandler("rate", bot.rated))
-    bot.dp.add_handler(CommandHandler("rated", bot.rated))
-    bot.dp.add_handler(CommandHandler("language", bot.language))
-    bot.dp.add_handler(CommandHandler("languages", bot.language))
-    bot.dp.add_handler(CommandHandler("award", bot.awards))
-    bot.dp.add_handler(CommandHandler("awards", bot.awards))
     bot.dp.add_handler(CommandHandler("plot", bot.plot))
-    bot.dp.add_handler(CommandHandler("rating", bot.rating))
-    bot.dp.add_handler(CommandHandler("ratings", bot.rating))
+    
     bot.dp.add_handler(CommandHandler("link", bot.link))
     # Any other message
     bot.dp.add_handler(MessageHandler(Filters.text, bot.any_text))

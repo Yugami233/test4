@@ -94,11 +94,11 @@ class Bot:
         response = requests.get(OMDB, params=omdb_params)
         movie_data = self.memory = response.json()                                  # Save found title in memory
         
-             data_str = 
-                   f"├📚 Topic:  {movie_data['Video_Description']}\n" \
-                   f"├⌛ Lec. No:  {movie_data['Class']}/10\n" \
-                   f"🚦Chapter:  {movie_data['Chapter']}\n" \
-                   f"🪂 instructor:  {movie_data['Instructor']}\n" \
+             
+                  data_str = f"├📚 Topic:  {movie_data['Video_Description']}\n" \
+                    f"├⌛ Lec. No:  {movie_data['Class']}/10\n" \
+                    f"🚦Chapter:  {movie_data['Chapter']}\n" \
+                    f"🪂 instructor:  {movie_data['Instructor']}\n" \
                    
 
         poster = requests.get(movie_data["thumbnail_path"]).content

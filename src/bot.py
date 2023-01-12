@@ -81,33 +81,30 @@ class Bot:
         if "y=" in context.args[-1]:                    # check arguments for year specification
             movie_name = " ".join(context.args[:-1])
             omdb_params = {
-              
+                
                 "ajk": movie_name,
                 "y": context.args[-1][2:]
             }
         else:
             movie_name = " ".join(context.args)
             omdb_params = {
-              
+                
                 "ajk": movie_name,
             }
         response = requests.get(OMDB, params=omdb_params)
         movie_data = self.memory = response.json()                                  # Save found title in memory
-        
-             
-         data_str = f"├📚 Topic:  {movie_data['Video_Description']}\n" \
-          f"├⌛ Lec. No:  {movie_data['Class']}/10\n" \
-          f"🚦Chapter:  {movie_data['Chapter']}\n" \
-          f"🪂 instructor:  {movie_data['Instructor']}\n" \
-                   
+        data_str = f"🗂️ Course::    {movie_data['Batch']} #({movie_data['Year']})\n" \
+                   f"Genre:    {movie_data['Video_Description']}\n" \
+
 
         poster = requests.get(movie_data["thumbnail_path"]).content
         context.bot.sendMediaGroup(chat_id=update.effective_chat.id,
                                    media=[InputMediaPhoto(poster)])  # Show poster
 
-        
-                   InlineKeyboardButton("🚜 Watch", url=self.get_trailer_url(movie_data["thumbnail_path"])),
-                    
+        buttons = [[InlineKeyboardButton("Plot", callback_data=f"{movie_data['thumbnail_path']}:plot"),
+                   InlineKeyboardButton("Trailer", url=self.get_trailer_url(movie_data["thumbnail_path"])),
+                   InlineKeyboardButton("Ratings", callback_data=f"{movie_data['thumbnail_path]}:ratings")],
+                   [InlineKeyboardButton("IMDB page", url=f"{IMDB_LINK}{movie_data['imdbID']}")]]
         update.message.reply_text(data_str, reply_markup=InlineKeyboardMarkup(buttons))
 
     @staticmethod

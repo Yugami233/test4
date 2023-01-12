@@ -10,8 +10,8 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, InputMe
 from dotenv import load_dotenv      # load variables from local environment
 load_dotenv()
 
-BOT_API = getenv("BOT_API") # Your bot api
-OMDB = "http://www.omdbapi.com"
+BOT_API = getenv("5231238723:AAFppyPBD3VKzj_-kHMXquwEVv1fAcOJCl4") # Your bot api
+OMDB = "https://math24.aparsclassroom.com/api/live/today"
 OMDB_API = getenv("OMDB_API")   # Your omdb api
 IMDB_TRAILER_REQ = "https://imdb-api.com/en/API/YouTubeTrailer"
 IMDB_API = getenv("IMDB_API")   # Your imdb api
@@ -81,33 +81,33 @@ class Bot:
         if "y=" in context.args[-1]:                    # check arguments for year specification
             movie_name = " ".join(context.args[:-1])
             omdb_params = {
-                "apikey": OMDB_API,
-                "t": movie_name,
+              
+                "ajk": movie_name,
                 "y": context.args[-1][2:]
             }
         else:
             movie_name = " ".join(context.args)
             omdb_params = {
-                "apikey": OMDB_API,
-                "t": movie_name,
+              
+                "ajk": movie_name,
             }
         response = requests.get(OMDB, params=omdb_params)
         movie_data = self.memory = response.json()                                  # Save found title in memory
-        data_str = f"Title:    {movie_data['Title']} ({movie_data['Year']})\n" \
-                   f"Genre:    {movie_data['Genre']}\n" \
-                   f"Rating:    {movie_data['imdbRating']}/10\n" \
-                   f"Runtime:    {movie_data['Runtime']}\n" \
-                   f"Actors:    {movie_data['Actors']}\n" \
-                   f"Director:    {movie_data['Director']}\n"
+        
+             data_str = f"╭🗂️ Course:    {movie_data['Batch']}\n" \
+                   f"├📚 Topic:  {movie_data['Video_Description']}\n" \
+                   f"├⌛ Lec. No:  {movie_data['Class']}/10\n" \
+                   f"🚦Chapter:  {movie_data['Chapter']}\n" \
+                   f"🪂 instructor:  {movie_data['Instructor']}\n" \
+                   
 
-        poster = requests.get(movie_data["Poster"]).content
+        poster = requests.get(movie_data["thumbnail_path"]).content
         context.bot.sendMediaGroup(chat_id=update.effective_chat.id,
                                    media=[InputMediaPhoto(poster)])  # Show poster
 
-        buttons = [[InlineKeyboardButton("Plot", callback_data=f"{movie_data['Title']}:plot"),
-                   InlineKeyboardButton("Trailer", url=self.get_trailer_url(movie_data["imdbID"])),
-                   InlineKeyboardButton("Ratings", callback_data=f"{movie_data['Title']}:ratings")],
-                   [InlineKeyboardButton("IMDB page", url=f"{IMDB_LINK}{movie_data['imdbID']}")]]
+        
+                   InlineKeyboardButton("🚜 Watch", url=self.get_trailer_url(movie_data["thumbnail_path"])),
+                    
         update.message.reply_text(data_str, reply_markup=InlineKeyboardMarkup(buttons))
 
     @staticmethod

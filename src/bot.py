@@ -10,7 +10,7 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, InputMe
 from dotenv import load_dotenv      # load variables from local environment
 load_dotenv()
 
-BOT_API = getenv("5231238723:AAFppyPBD3VKzj_-kHMXquwEVv1fAcOJCl4") # Your bot api
+BOT_API = "5231238723:AAFppyPBD3VKzj_-kHMXquwEVv1fAcOJCl4" # Your bot api
 OMDB = "https://math24.aparsclassroom.com/api/live/today"
 OMDB_API = getenv("OMDB_API")   # Your omdb api
 IMDB_TRAILER_REQ = "https://imdb-api.com/en/API/YouTubeTrailer"
